@@ -77,7 +77,6 @@
 % Needed to manage math fonts
 \RequirePackage{unicode-math}
 % Needed to use icons from font-awesome
-% (https://github.com/posquit0/latex-fontawesome)
 \RequirePackage{fontawesome}
 
 % Needed for the photo ID
