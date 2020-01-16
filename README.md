@@ -8,15 +8,15 @@ The basic structures and styles are kept unchanged, but the some parts of the or
 
 ### **Preview**
 ---
-* #### *Resume English*
+* #### Resume English
 |Sample Page 1|Sample Page 2|
 |:-----:|:-----:|
-|[![Resume Page 1]()]()|[![Resume Page 2]()]()|
+|[![Resume Page 1](https://rawcdn.githack.com/bennetyf/resume/98b9bedffd3088bff3cc14d98508d6da5c306542/Samples/resume-sample-en-1.png)]()|[![Resume Page 2](https://rawcdn.githack.com/bennetyf/resume/98b9bedffd3088bff3cc14d98508d6da5c306542/Samples/resume-sample-en-2.png)]()|
 
 * #### *Cover Letter*
 |Sample Page|
 |:-----:|
-|[![Cover Letter]()]()|
+|[![Cover Letter](https://rawcdn.githack.com/bennetyf/resume/98b9bedffd3088bff3cc14d98508d6da5c306542/Samples/coverletter-sample-en-1.png)]()|
 
 ### **How to Use**
 ---
