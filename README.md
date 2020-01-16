@@ -11,12 +11,12 @@ The basic structures and styles are kept unchanged, but the some parts of the or
 * #### Resume English
 |Sample Page 1|Sample Page 2|
 |:-----:|:-----:|
-|[![Resume Page 1](https://rawcdn.githack.com/bennetyf/resume/98b9bedffd3088bff3cc14d98508d6da5c306542/Samples/resume-sample-en-1.png)]()|[![Resume Page 2](https://rawcdn.githack.com/bennetyf/resume/98b9bedffd3088bff3cc14d98508d6da5c306542/Samples/resume-sample-en-2.png)]()|
+|[![Resume Page 1](https://rawcdn.githack.com/bennetyf/resume/98b9bedffd3088bff3cc14d98508d6da5c306542/Samples/resume-sample-en-1.png)](https://rawcdn.githack.com/bennetyf/resume/8077c4cb0c4b521d837fea5b46571b858f09f5e0/Samples/resume-sample-en.pdf)|[![Resume Page 2](https://rawcdn.githack.com/bennetyf/resume/98b9bedffd3088bff3cc14d98508d6da5c306542/Samples/resume-sample-en-2.png)](https://rawcdn.githack.com/bennetyf/resume/8077c4cb0c4b521d837fea5b46571b858f09f5e0/Samples/resume-sample-en.pdf)|
 
 * #### *Cover Letter*
 |Sample Page|
 |:-----:|
-|[![Cover Letter](https://rawcdn.githack.com/bennetyf/resume/98b9bedffd3088bff3cc14d98508d6da5c306542/Samples/coverletter-sample-en-1.png)]()|
+|[![Cover Letter](https://rawcdn.githack.com/bennetyf/resume/98b9bedffd3088bff3cc14d98508d6da5c306542/Samples/coverletter-sample-en-1.png)](https://rawcdn.githack.com/bennetyf/resume/8077c4cb0c4b521d837fea5b46571b858f09f5e0/Samples/coverletter-sample-en.pdf)|
 
 ### **How to Use**
 ---
@@ -29,6 +29,7 @@ $ xelatex resume.tex
 This will output the final pdf file.
 
 #### *Colors and Fonts*
+
 #### *Resume Environments*
 #### *Resume Commands*
 #### *Coverletter Environments*
