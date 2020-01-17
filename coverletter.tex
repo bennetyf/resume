@@ -5,13 +5,34 @@
 % CONFIGURATIONS
 %-------------------------------------------------------------------------------
 % A4 paper size by default, use 'letterpaper' for US letter
-\documentclass[12pt, a4paper]{resume}
+\documentclass[12pt, a4paper]{cv-styles}
 
 % Configure page margins with geometry
 \geometry{left=1.4cm, top=1.5cm, right=1.4cm, bottom=1.8cm, footskip=.5cm}
 
+% Specify the location of the included fonts
+% \fontdir[fonts/]
+
+% Color for highlights
+% Awesome Colors: awesome-emerald, awesome-skyblue, awesome-red, awesome-pink, awesome-orange
+%                 awesome-nephritis, awesome-concrete, awesome-darknight
+\colorlet{palette}{my-emerald}
+% Uncomment if you would like to specify your own color
+% \definecolor{awesome}{HTML}{CA63A8}
+
+% Colors for text
+% Uncomment if you would like to specify your own color
+% \definecolor{darktext}{HTML}{414141}
+% \definecolor{text}{HTML}{333333}
+% \definecolor{graytext}{HTML}{5D5D5D}
+% \definecolor{lighttext}{HTML}{999999}
+
 % Set false if you don't want to highlight section with awesome color
 \setbool{SectionColorHighlight}{true}
+
+% If you would like to change the social information separator from a pipe (|) to something else
+\renewcommand{\HeaderSocialSep}{\quad\textbar\quad}
+
 
 %-------------------------------------------------------------------------------
 %	PERSONAL INFORMATION
@@ -47,7 +68,6 @@
 %	All of the below lines must be filled out
 %-------------------------------------------------------------------------------
 % The company being applied to
-% Usage: \recipient{<To whom this letter is for>}{<Address of the company>}
 \recipient
   {Company Recruitment Team}
   {Google Inc.\\1600 Amphitheatre Parkway\\Mountain View, CA 94043}
@@ -75,7 +95,7 @@
 \makecvfooter{\today}{Feng~~Yuan}{\thepage}
 
 % Print the title with above letter informations
-\makeletterheader
+\makelettertitle
 
 %-------------------------------------------------------------------------------
 %	LETTER CONTENT
@@ -100,7 +120,7 @@
 \end{cvletter}
 
 %-------------------------------------------------------------------------------
-% Print the enclosures with above letter informations
+% Print the signature and enclosures with above letter informations
 \makeletterenclosure
 
 \end{document}

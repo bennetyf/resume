@@ -21,7 +21,7 @@
 %-------------------------------------------------------------------------------
 %                Identification
 %-------------------------------------------------------------------------------
-\ProvidesClass{resume}[2020/01/10 v0.0.1 CV Resume Class]
+\ProvidesClass{cv-styles}[2020/01/10 v0.0.1 CV Styles Class]
 \NeedsTeXFormat{LaTeX2e}
 
 
@@ -77,6 +77,7 @@
 % Needed to manage math fonts
 \RequirePackage{unicode-math}
 % Needed to use icons from font-awesome
+% (https://github.com/posquit0/latex-fontawesome)
 \RequirePackage{fontawesome}
 
 % Needed for the photo ID
@@ -110,11 +111,12 @@
 \newcommand*{\fontdir}[1][fonts/]{\def\@fontdir{#1}}
 \fontdir
 
+
 %-------------------------------------------------------------------------------
 %                Configuration for layout
 %-------------------------------------------------------------------------------
 %% Page Layout
-% Configure page margins with geometry (defaults)
+% Configure page margins with geometry
 \geometry{left=1.0cm, top=1.5cm, right=1.0cm, bottom=1.5cm, footskip=.5cm}
 
 %% Header & Footer
@@ -264,6 +266,7 @@
 \newcommand*{\paragraphstyle}[1][12pt]{\fontsize{#1}{1em}\bodyfontlight\upshape\color{text}}
 
 % For elements of entry
+% \newcommand*{\entryiconstyle}[2][20pt]{{\fontsize{#1}{1em} #2}}
 \newcommand*{\entrytitlestyle}[2][13pt]{{\fontsize{#1}{1em}\bodyfont\bfseries\color{darktext} #2}}
 \newcommand*{\entrylocationstyle}[2][11pt]{{\fontsize{#1}{1em}\bodyfontlight\slshape\color{my-color} #2}}
 \newcommand*{\entrypositionstyle}[2][12pt]{{\fontsize{#1}{1em}\bodyfont\scshape\color{text} #2}}
@@ -319,7 +322,7 @@
 \def\@photoalign{left}
 
 % Define writer's name
-% Usage: \name[<prefix>]{<firstname>}{<middlename>}{<lastname>}
+% Usage: \name{<firstname>}{<lastname>}
 % Usage: \firstname{<firstname>}
 % Usage: \lastname{<lastname>}
 % Usage: \familyname{<familyname>}
@@ -498,7 +501,6 @@
 % Use to draw horizontal line with specific thickness
 \def\vhrulefill#1{\leavevmode\leaders\hrule\@height#1\hfill \kern\z@}
 
-% Draw a vertically centered horizontal line with specific thickness
 \def\rulefill#1#2{\leavevmode\leaders\hrule\@height#1\@depth#2\hfill \kern\z@}
 \newlength{\eX}
 \setlength{\eX}{10pt}
@@ -512,7 +514,7 @@
 %                Commands for elements of CV structure
 %-------------------------------------------------------------------------------
 % Define a header for CV
-% Usage: \makecvheader[<position>]
+% Usage: \makecvheader
 \newcommand*{\makecvheader}[1][C]{%
   \newcommand*{\drawphoto}{%
     \ifthenelse{\isundefined{\@photo}}{}{%
@@ -705,17 +707,17 @@
 }
 
 % Define an entry of cv information
-% Usage: \cventry[<specialism>]{<position>}{<title>}{<location>}{<date>}{<description>}
+% Usage: \cventry{<position>}{<title>}{<location>}{<date>}{<description>}
 \newcommand*{\cventry}[6][]{%
   \vspace{\SectionEntryTopSkip}
   \setlength\tabcolsep{0pt}
   \setlength{\extrarowheight}{0pt}
   \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{.8\textwidth} R{.2\textwidth}}
-      \ifempty{#3#4}%
-        {\entrypositionstyle{\makecell[l]{#2~#1}} & \entrydatestyle{\makecell[l]{#5}} \\}%
-        {\entrytitlestyle{\makecell[l]{#3}} & \entrylocationstyle{\makecell[r]{#4}} \\
-         \entrypositionstyle{\makecell[l]{#2~#1}} & \entrydatestyle{\makecell[r]{#5}} \\}%
-      \multicolumn{2}{L{\textwidth}}{\descriptionstyle{#6}}
+      \ifempty{#3#4}
+        {\entrypositionstyle{#2~#1} & \entrydatestyle{#5} \\}
+        {\entrytitlestyle{#3} & \entrylocationstyle{#4} \\
+         \entrypositionstyle{#2~#1} & \entrydatestyle{#5} \\}
+        \multicolumn{2}{L{\textwidth}}{\descriptionstyle{#6}}
   \end{tabular*}%
 }
 
@@ -938,14 +940,10 @@
   sigheight/.estore in = \cvletterSignatureHeight
 }
 
-% Define the cover letter environment
-% Usage: \begin[<fontsize>,<top-margin>,<bottom-margin>,<header-margin>,<closing-margin>,<signature-margin>,<signature-pic>,<signature-width>,<signature-height>]{cvletter}\end{cvletter}
 \NewEnviron{cvletter}[1][]{%
   \pgfkeys{/cvletter, default, #1}
 
-  % Define a command to make the cover letter opening
-  % Usage: \makeletterheader
-  \newcommand*{\makeletteropening}{%
+  \newcommand*{\makeletterheader}{%
     \setlength\tabcolsep{0pt}%
     \setlength{\extrarowheight}{0pt}%
     \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{.4\textwidth} R{.6\textwidth}}%
@@ -953,8 +951,6 @@
     \end{tabular*}%
   }
 
-  % Define a command to make the closing of the cover letter
-  % Usage: \makeletterclosing
   \newcommand*{\makeletterclosing}{%
     \begin{minipage}{\textwidth}%
       \vspace{\cvletterClosingMargin}
@@ -978,7 +974,7 @@
     \def\@lettertextfontsize{\cvletterFontsize}%
   \fi%
   \vspace{\cvletterTopMargin}%
-  \makeletteropening%
+  \makeletterheader%
   \vspace{\cvletterHeaderMargin}%
   \BODY%
   \makeletterclosing%
@@ -994,9 +990,9 @@
 }
 
 % Define a title of the cover letter
-% Usage: \makeletterheader[<address-stretch>,<inner-margin>,<top-margin>,<bottom-margin>]
+% Usage: \makelettertitle
 \pgfkeys{
-  /makeletterheader/.is family, /makeletterheader,
+  /makelettertitle/.is family, /makelettertitle,
   default/.style = {stretch=1.25, inner=8mm, top=12mm, bottom=2mm},
   stretch/.estore in = \lettertitleStretch,
   inner/.estore in = \lettertitleInner,
@@ -1004,8 +1000,8 @@
   bottom/.estore in = \lettertitleBottomMargin
 }
 
-\newcommand*{\makeletterheader}[1][]{%
-  \pgfkeys{/makeletterheader, default, #1}
+\newcommand*{\makelettertitle}[1][]{%
+  \pgfkeys{/makelettertitle, default, #1}
   \setlength\tabcolsep{0pt}
   \setlength{\extrarowheight}{0pt}
   \vspace{\lettertitleTopMargin}
@@ -1030,8 +1026,6 @@
   bottom/.estore in = \lettercontentBottomMargin
 }
 
-% Define the lettercontent environment
-% Usage: \begin{lettercontent}[<fontsize>,<width>,<height>,<top-margin>,<bottom-margin>]\end{lettercontent}
 \NewEnviron{lettercontent}[1][]{%
   \pgfkeys{/lettercontent, default, #1}%
   \ifdefined\@lettercontentHeight%
@@ -1051,7 +1045,7 @@
 }
 
 % Define a closing of the cover letter
-% Usage: \makeletterenclosure[<fontsize>]
+% Usage: \makeletterclosing
 \pgfkeys{
   /makeletterenclosure/.is family, /makeletterenclosure,
   default/.style = {fontsize=12pt},
