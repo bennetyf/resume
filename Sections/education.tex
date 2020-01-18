@@ -8,9 +8,10 @@
 %	CONTENT
 %-------------------------------------------------------------------------------
 \begin{cventries}
-
+  \newcommand{\edutopskip}{-1mm}
+  \newcommand{\edubottomskip}{-2mm}
 %---------------------------------------------------------
-  \cventry[bottom=-3mm]
+  \cventry[bottom=\edubottomskip, top=\edutopskip]%
     {Ph.D. in Computer Science and Engineering} % Degree
     {UNSW (The University of New South Wales)} % Institution
     {Sydney, Australia} % Location
@@ -24,7 +25,7 @@
       \end{cvitems}
     }
 
-  \cventry[bottom=-3mm]
+  \cventry[top=\edutopskip,bottom=\edubottomskip]
     {M.Phil. in Electronic Engineering}%
     {UoM (The University of Melbourne)}%
     {Melbourne, Australia}%
@@ -39,7 +40,7 @@
       \end{cvitems}
     }
 
-  \cventry[bottom=-3mm]
+  \cventry[top=\edutopskip,bottom=\edubottomskip]
     {B.E. in Automatic Control}%
     {USTC (The University of Science and Technology of China) \\ {\fontsize{10pt}{1em}\itshape Top 100 in the World, Top 5 in Mainland China (QS/THE Rankings)}}%
     {He Fei City, China}%

@@ -843,13 +843,16 @@
 \pgfkeys{
   /cvpubs/.is family, /cvpubs,
   default/.style = {fontsize=11pt, label={},
-                    series=pubcnt, start=0, indent=3.4pt},
+                    series=pubcnt, start=0, indent=3.4pt,
+                    top=0mm,bottom=0mm},
   fontsize/.estore in = \cvpubsFontsize,
   label/.estore in = \cvpubsLabel,
   series/.estore in = \cvpubsSeries,
   resume/.estore in = \cvpubsResume,
   start/.estore in = \cvpubsStart,
-  indent/.estore in = \cvpubsIndent
+  indent/.estore in = \cvpubsIndent,
+  top/.estore in = \cvpubsTopSkip,
+  bottom/.estore in = \cvpubsBottomSkip
 }
 
 % Define an enviroment for publications
@@ -944,14 +947,14 @@
     {\conference[\itempubFontsize]{##2}{##3}{##4}{##5}{##7}{##8}{##9}}%
   }
 %-------------------------------------------------------------------------------------%
-  \vspace{\SectionContentTopSkip}
+  \vspace{\cvpubsTopSkip}
   \begin{justify}
     \begin{itemize}%
     \setlength{\itemindent}{\cvpubsIndent}%
 }{%
     \end{itemize}
   \end{justify}
-  \vspace{\SectionItemTopSkip}
+  \vspace{\cvpubsBottomSkip}
 }
 
 %-------------------------------------------------------------------------------
