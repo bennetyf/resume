@@ -473,8 +473,8 @@
 \newcommand{\HeaderAfterQuoteSkip}{5mm}
 
 % Others
-\newcommand{\SectionTopSkip}{3mm}
-\newcommand{\SectionBottomSkip}{-3mm}
+\newcommand{\SectionTopSkip}{2mm}
+\newcommand{\SectionBottomSkip}{-2mm}
 \newcommand{\SectionContentTopSkip}{2mm}
 \newcommand{\SectionIconSep}{\space}
 \newcommand{\SectionItemTopSkip}{-3mm}
@@ -670,11 +670,20 @@
 
 % Define a section for CV
 % Usage: \cvsection[<section-icon>]{<section-title>}
-\newcommand{\cvsection}[2][\faBookmarkO]{%
-  \vspace{\SectionTopSkip}
-  \sectionstyle{#1\SectionIconSep#2}
+\pgfkeys{
+  /cvsection/.is family, /cvsection,
+  default/.style = {top=0mm, bottom=0mm, icon=\faBookmarkO},
+  top/.estore in = \cvsectionTopSkip,
+  bottom/.estore in = \cvsectionBottomSkip,
+  icon/.estore in = \cvsectionIcon
+}
+\newcommand{\cvsection}[2][]{%
+  \pgfkeys{/cvsection, default, #1}%
+  \vspace{\cvsectionTopSkip}
+  \sectionstyle{\cvsectionIcon\SectionIconSep#2}
   \phantomsection
   \color{gray}\cvrulefill{1.25pt}
+  \vspace{\cvsectionBottomSkip}
 }
 
 % Define a subsection for CV
@@ -697,26 +706,44 @@
 
 % Define an environment for cventry
 \newenvironment{cventries}{%
-  \vspace{\SectionContentTopSkip}
+  % \vspace{\SectionContentTopSkip}
   \begin{center}
 }{%
   \end{center}
-  \vspace{\SectionBottomSkip}
+  % \vspace{\SectionBottomSkip}
 }
 
 % Define an entry of cv information
-% Usage: \cventry[<specialism>]{<position>}{<title>}{<location>}{<date>}{<description>}
+% Usage: \cventry[]{<position>}{<title>}{<location>}{<date>}{<description>}
+\pgfkeys{
+  /cventry/.is family, /cventry,
+  default/.style = {top=0mm, bottom=0mm, specialism={}},
+  top/.estore in = \cventryTopSkip,
+  bottom/.estore in = \cventryBottomSkip,
+  specialism/.estore in = \cventrySpecialism
+}
+
 \newcommand*{\cventry}[6][]{%
-  \vspace{\SectionEntryTopSkip}
-  \setlength\tabcolsep{0pt}
-  \setlength{\extrarowheight}{0pt}
-  \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{.8\textwidth} R{.2\textwidth}}
-      \ifempty{#3#4}%
-        {\entrypositionstyle{\makecell[l]{#2~#1}} & \entrydatestyle{\makecell[l]{#5}} \\}%
-        {\entrytitlestyle{\makecell[l]{#3}} & \entrylocationstyle{\makecell[r]{#4}} \\
-         \entrypositionstyle{\makecell[l]{#2~#1}} & \entrydatestyle{\makecell[r]{#5}} \\}%
-      \multicolumn{2}{L{\textwidth}}{\descriptionstyle{#6}}
-  \end{tabular*}%
+  \pgfkeys{/cventry, default, #1}%
+  \vspace{\cventryTopSkip}
+  \ifempty{#2#3#4#5}
+  {
+    \begin{minipage}{\textwidth}
+      \descriptionstyle{#6}
+    \end{minipage}
+  }
+  {
+      \setlength\tabcolsep{0pt}
+      \setlength{\extrarowheight}{0pt}
+      \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{.8\textwidth} R{.2\textwidth}}
+        \ifempty{#3#4}%
+          {\entrypositionstyle{\makecell[l]{#2~\cventrySpecialism}} & \entrydatestyle{\makecell[l]{#5}} \\}%
+          {\entrytitlestyle{\makecell[l]{#3}} & \entrylocationstyle{\makecell[r]{#4}} \\
+          \entrypositionstyle{\makecell[l]{#2~\cventrySpecialism}} & \entrydatestyle{\makecell[r]{#5}} \\}%
+        \multicolumn{2}{L{\textwidth}}{\descriptionstyle{#6}}
+      \end{tabular*}%
+  }
+  \vspace{\cventryBottomSkip}
 }
 
 % Define an environment for cvsubentry
@@ -724,7 +751,7 @@
   \begin{center}
 }{%
   \end{center}
-  \vspace{\SectionBottomSkip}
+  % \vspace{\SectionBottomSkip}
 }
 % Define a subentry of cv information
 % Usage: \cvsubentry{<position>}{<title>}{<date>}{<description>}
@@ -745,16 +772,24 @@
 }
 
 % Define an environment for cvhonor
-\newenvironment{cvhonors}{%
-  \vspace{\SectionContentTopSkip}
+\pgfkeys{
+  /cvhonors/.is family, /cvhonors,
+  default/.style = {top=0mm,bottom=0mm},
+  top/.estore in = \cvhonorsTopSkip,
+  bottom/.estore in = \cvhonorsBottomSkip
+}
+
+\newenvironment{cvhonors}[1][]{%
+  \pgfkeys{/cvhonors, default, #1}
+  \vspace{\cvhonorsTopSkip}
   \begin{center}
-    \setlength\tabcolsep{0pt}
-    \setlength{\extrarowheight}{0pt}
-    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} C{.1\textwidth} L{.75\textwidth} R{.15\textwidth}}
+    \setlength\tabcolsep{2pt}
+    \setlength{\extrarowheight}{2.5pt}
+    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} C{.05\textwidth} L{.75\textwidth} R{.2\textwidth}}
 }{%
     \end{tabular*}
   \end{center}
-  \vspace{\SectionBottomSkip}
+  \vspace{\cvhonorsBottomSkip}
 }
 % Define a line of cv information(honor, award or something else)
 % Usage: \cvhonor{<position>}{<title>}{<location>}{<date>}
@@ -766,21 +801,29 @@
 }
 
 % Define an environment for cvskill
-\newenvironment{cvskills}{%
-  % \vspace{\SectionBottomSkip}
+\pgfkeys{
+  /cvskills/.is family, /cvskills,
+  default/.style = {top=0mm,bottom=0mm},
+  top/.estore in = \cvskillsTopSkip,
+  bottom/.estore in = \cvskillsBottomSkip
+}
+\newenvironment{cvskills}[1][]{%
+  \pgfkeys{/cvskills, default, #1}
+  \vspace{\cvskillsTopSkip}
   \begin{center}
     \setlength\tabcolsep{1ex}
     \setlength{\extrarowheight}{0pt}
-    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} r L{.9\textwidth}}
+    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} r L{.8\textwidth}}
 }{%
     \end{tabular*}
   \end{center}
-  \vspace{\SectionBottomSkip}
+  \vspace{\cvskillsBottomSkip}
 }
+
 % Define a line of cv information(skill)
 % Usage: \cvskill{<type>}{<skillset>}
 \newcommand*{\cvskill}[2]{%
-	\skilltypestyle{#1} & \skillsetstyle{#2} \\
+	\skilltypestyle{\makecell[r]{#1}} & \skillsetstyle{\makecell[l]{#2}} \\
 }
 
 % Define an environment for cvitems(for cventry)
